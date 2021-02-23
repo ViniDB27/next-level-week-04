@@ -1,15 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from '../styles/components/CountDown.module.css'
 
 export default function CountDown(){
 
+    
+    const [active, setActive] = useState(false)
     const [time, setTime] = useState(25 * 60)
-
+    
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-
+    
     const [ minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
     const [ secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
+    
+    function startCountDown(){
+        setActive(true)
+    }
+
+    useEffect(()=>{
+        if(active && time > 0){
+            setTimeout(()=>{
+                setTime(time - 1)
+            }, 1000)
+        }
+    },[active, time])
 
     return(
         <div>
@@ -25,7 +39,12 @@ export default function CountDown(){
                 </div>
             </div>
 
-            <button type="button" className={styles.countDownButton} >
+            <button 
+                type="button" 
+                className={styles.countDownButton}
+                onClick={startCountDown}
+            
+            >
                 iniciar um cilco
             </button>
         </div>
