@@ -1,0 +1,116 @@
+.challangeBoxContainer{
+    height: 100%;
+
+    background: var(--white);
+    border-radius: 5px;
+    box-shadow:0 0 60px rgba(0, 0, 0, .05);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.challangeBoxNotActive{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.challangeBoxNotActive strong {
+    font-size-adjust: 1.5rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.challangeBoxNotActive p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.4;
+    max-width: 70%;
+    margin-top: 3rem;
+
+}
+
+.challangeBoxNotActive p img{
+    margin-bottom: 1rem;
+}
+
+.challangeBoxActive{
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.challangeBoxActive header{
+
+    color: var(--blue);
+    font-weight: 600;
+    font-size: 1.25rem;
+    padding: 0 2rem 1.5rem;
+    border-bottom: 1px solid var(--blue-line);
+}
+
+.challangeBoxActive main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.challangeBoxActive main strong {
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--title);
+    margin: 1.5rem 0 1rem;
+}
+
+.challangeBoxActive main p{
+    line-height: 1.5;
+}
+
+.challangeBoxActive footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 1rem;
+    margin-top: 4rem;
+}
+
+.challangeBoxActive footer button{
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 5px;
+
+    color: var(--white);
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    padding: 1rem 2rem;
+    transition: 0.2s;
+}
+
+.challangeBoxActive footer button.challangeFaileButton{
+    background: var(--red);
+}
+
+.challangeBoxActive footer button.challangeSucceededButton{
+    background: var(--red);
+    background: var(--green);
+}
+
+.challangeBoxActive footer button:hover{
+    filter: brightness(0.9);
+}
