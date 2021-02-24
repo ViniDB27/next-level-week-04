@@ -4,22 +4,21 @@ import styles from '../styles/components/ChallangeBox.module.css';
 
 export default function ChallangeBox(){
 
-    const contextData = useContext(ChallangesContext)
+    const { activeChallenges, resetChallenge } = useContext(ChallangesContext)
 
-    const hasActiveChallanged = true
 
     return(
         <div className={styles.challangeBoxContainer} >
-            {hasActiveChallanged ? (
+            {activeChallenges ? (
 
                 <div className={styles.challangeBoxActive}>
-                    <header>Ganhe 400xp</header>
+                    <header>Ganhe {activeChallenges.amount}xp</header>
                     <main>
-                        <img src="icons/body.svg" alt=""/>
+                        <img src={`icons/${activeChallenges.type}.svg`} alt=""/>
                         <strong>Novo Desafio</strong>
-                        <p>levante e faça uma caminhada de 3 min</p>
+                        <p>{activeChallenges.description}</p>
                         <footer>
-                            <button type="button" className={styles.challangeFaileButton} >Falhei</button>
+                            <button onClick={resetChallenge} type="button" className={styles.challangeFaileButton} >Falhei</button>
                             <button type="button" className={styles.challangeSucceededButton} >Completei</button>
                         </footer>
                     </main>

@@ -6,7 +6,7 @@ let coutdownTimeout: NodeJS.Timeout;
 
 export default function CountDown(){
 
-    const contextData = useContext(ChallangesContext)
+    const { startNewChallange } = useContext(ChallangesContext)
     
     const [isActive, setIsActive] = useState(false)
     const [time, setTime] = useState(0.1 * 60)
@@ -37,6 +37,7 @@ export default function CountDown(){
         }else if (isActive && time === 0){
             setHasFinished(true)
             setIsActive(false)
+            startNewChallange()
         }
     },[isActive, time])
 
