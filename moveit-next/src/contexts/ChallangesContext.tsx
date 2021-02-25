@@ -1,4 +1,4 @@
-import {createContext, useState, ReactNode} from 'react'
+import {createContext, useState, ReactNode, useEffect} from 'react'
 import challenges from '../../challenges.json'
 
 interface Challenge {
@@ -15,7 +15,8 @@ interface ChallengesContextData {
     startNewChallange:() => void; 
     activeChallenges: Challenge;
     resetChallenge: () => void;
-    experienceToNextLevel: number
+    experienceToNextLevel: number;
+    completeChallenge: ()=> void;
 
 }
 
@@ -35,7 +36,11 @@ export function ChallengesProvider({ children }: ChallengesProviderProps){
 
     const [activeChallenges, setActiveChallenges] = useState(null)
 
-    const experienceToNextLevel = Math.pow((level + 1 * 4),2)
+    const experienceToNextLevel = Math.pow((level + 1 * 10),2)
+
+    useEffect(()=>{
+        
+    },[])
 
     function levelUp(){
       setLevel(level + 1)
@@ -45,11 +50,39 @@ export function ChallengesProvider({ children }: ChallengesProviderProps){
         const challengesRandom = Math.floor(Math.random() * challenges.length)
         const challenge = challenges[challengesRandom]
         setActiveChallenges(challenge)
+        Notification.requestPermission()
+
+        new Audio('/notification.mp3').play()
+
+        if(Notification.permission === 'granted' ){
+            new Notification('Novo Desafio 🎉', {
+                body: `Valendo ${challenge.amount} xp!`
+            })
+        }
     }
   
 
     function resetChallenge(){
         setActiveChallenges(null)
+    }
+
+    function completeChallenge(){
+
+        if(!activeChallenges)return;
+
+        const { amount } = activeChallenges
+        
+        let finalEperience = (currentExperience + amount)
+
+        if(finalEperience >= experienceToNextLevel){
+            finalEperience = (finalEperience - experienceToNextLevel)
+            levelUp()
+        }
+
+        setCurrentExperience(finalEperience)
+        setActiveChallenges(null)
+        setChallengesComplete(challengesComplete + 1)
+
     }
 
     return(
@@ -63,7 +96,7 @@ export function ChallengesProvider({ children }: ChallengesProviderProps){
                 activeChallenges,
                 resetChallenge,
                 experienceToNextLevel,
-
+                completeChallenge
             }} 
         >
             {children}
